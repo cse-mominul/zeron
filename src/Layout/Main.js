@@ -1,23 +1,26 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-import Footerweb from '../Pages/ShearPage/Footer/Footerweb';
+import Header from '../Pages/ShearPage/Header/Header';
 import LeftNav from '../Pages/ShearPage/LeftSideNav/LeftNav';
+import './Main.css'
 
 const Main = () => {
     return (
         <div>
-            <Container>
+            <div className='d-lg-none'>
+            <Header></Header>
+            </div>
+            <>
             <Row>
-                <Col lg='4'>
+                <Col lg='3'>
                 <LeftNav></LeftNav>
                 </Col>
-                <Col lg='8'>
+                <Col lg='9'>
                 <Outlet></Outlet>
                 </Col>
             </Row>
-        </Container>
-        <Footerweb></Footerweb>
+        </>
         </div>
         
     );

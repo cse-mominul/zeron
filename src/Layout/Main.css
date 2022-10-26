@@ -1,0 +1,10 @@
+.CardStyle{
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-column-gap: 50px;
+    row-gap: 50px;
+}
+.imgHeight{
+    height: 200px;
+}
