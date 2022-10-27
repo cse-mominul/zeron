@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -8,6 +9,7 @@ import { AuthContexts } from '../../Contexts/AuthProvider/AuthProvider';
 const Register = () => {
     const {createUser}= useContext(AuthContexts)
     const navigate = useNavigate();
+    const [error ,setError] = useState([]);
     const handleRegister = (event)=>{
         event.preventDefault();
         const from = event.target;
@@ -22,9 +24,11 @@ const Register = () => {
             console.log(user)
             from.reset();
             navigate('/')
+            setError('')
         })
         .catch(error => {
             console.error(error);
+            setError(error.message);
         })
 
     }
@@ -32,7 +36,7 @@ const Register = () => {
         <div C  className='mt-4'>
                   <Form onSubmit={handleRegister}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label>Full Name</Form.Label>
                             <Form.Control name='name' type="text" placeholder="Your Name" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -51,6 +55,13 @@ const Register = () => {
                             Register
                         </Button>
             </Form>
+            {
+        error? 
+        <p>{error}</p>
+        :
+        <>
+        </>
+    }
             
         </div>
     );

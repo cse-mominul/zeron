@@ -18,6 +18,9 @@ hr{
    
 
 }
+.Zeron{
+    text-decoration: none;
+}
 .userStyle{
     display: flex;
     flex-direction: column;

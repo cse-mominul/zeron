@@ -8,12 +8,15 @@ import { ButtonGroup, Image } from 'react-bootstrap';
 import './LeftNav.css'
 import { useContext } from 'react';
 import { AuthContexts } from '../../../Contexts/AuthProvider/AuthProvider';
-import { GoogleAuthProvider, } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider, } from 'firebase/auth';
 const LeftNav = () => {
     const {providerLogin} = useContext(AuthContexts);
     const {user} = useContext(AuthContexts);
     const {logOut} = useContext(AuthContexts);
+    const {githubLogin} = useContext(AuthContexts);
     const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
+    
     const HandleGoogleLogIn  = () =>{
         providerLogin(googleProvider)
         .then(result => {
@@ -21,6 +24,15 @@ const LeftNav = () => {
             console.log(user)
         })
         .catch(error => console.log(error))
+
+    }
+    const handleGithub = () => {
+    githubLogin(githubProvider)
+    .then(result=>{
+        const user = result.user;
+        console.log(user)
+    })
+    .catch(error => console.error(error))
 
     }
     const HandleLogOut = () =>{
@@ -35,7 +47,7 @@ const LeftNav = () => {
     const [categories, setCategories] =useState([])
 
     useEffect(()=>{
-        fetch('http://localhost:5000/categories')
+        fetch('https://zeron-server.vercel.app/categories')
         .then(res => res.json())
         .then(data => setCategories(data));
     },[])
@@ -61,16 +73,19 @@ const LeftNav = () => {
             </div>
             </div>
              <div className='LeftNavStyle'>
-             <h1 className='text-white pt-4 text-center'>Zeron</h1>
+             
+             <Link className="Zeron" to='/'><h1 className='text-white pt-4 text-center'>Zeron</h1></Link>
             <p className='text-center text-white'><small >Eat code sleep repeat </small></p>
             
-            
-           
+            <Link className='text-white MenuItems' to='/premium'> Get Premium Access</Link>
+            <hr></hr>
+            <Link className='text-white MenuItems' to='/blog'> Blog</Link>
+            <hr></hr>
         
             {
                 categories.map(category => <p key={category.id}> <Link className='text-white MenuItems' to={`/category/${category.id}`}>{category.name}</Link><hr></hr></p>)
             }
-           
+            
             {
                 user?.uid ? <Button onClick={HandleLogOut} className="mt-2 text-white" > <FaPowerOff/> Log Out</Button>
                 :
@@ -78,7 +93,7 @@ const LeftNav = () => {
             <p className='text-center text-white'>Log In With</p>
             <ButtonGroup className='me-2 d-flex center'>
             <Button onClick={HandleGoogleLogIn} className="me-2 text-white"variant="outline-primary"> <FaGoogle/> Google</Button>
-             <Button className="me-2 text-white" variant="outline-secondary"> <FaGithub/> Github</Button>
+             <Button onClick ={handleGithub} className="me-2 text-white" variant="outline-secondary"> <FaGithub/> Github</Button>
             </ButtonGroup>
             <div className="d-flex justify-content-between">
             <Button className="mt-2 me-2 text-white" variant="outline-primary" ><Link className="mt-2 text-white btnstyle" to='/login'><FaRedo/> Login Now</Link></Button>

@@ -14,7 +14,6 @@ const Category = () => {
             key={course._id}
             course={course}
             >
-
             </Courses> )
           }
         </div>
