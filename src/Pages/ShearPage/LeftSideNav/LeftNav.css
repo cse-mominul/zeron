@@ -27,3 +27,8 @@ hr{
     margin-left: 0;
     margin-bottom: 0;
 }
+.btnstyle{
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
